@@ -58,8 +58,9 @@ def surface_position(
     lat_odd_s = lat_odd_n - 90
 
     # chose which solution corrispondes to receiver location
-    lat_even = lat_even_n if lat_ref > 0 else lat_even_s
-    lat_odd = lat_odd_n if lat_ref > 0 else lat_odd_s
+    # choose the latitude closest to the reference
+    lat_even = lat_even_n if abs(lat_even_n - lat_ref) < abs(lat_even_s - lat_ref) else lat_even_s
+    lat_odd = lat_odd_n if abs(lat_odd_n - lat_ref) < abs(lat_odd_s - lat_ref) else lat_odd_s
 
     # check if both are in the same latidude zone, rare but possible
     if common.cprNL(lat_even) != common.cprNL(lat_odd):
